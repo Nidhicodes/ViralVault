@@ -1,0 +1,16 @@
+{
+  "name": "viralvault",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "contracts",
+    "frontend"
+  ],
+  "scripts": {
+    "install:all": "npm install && cd contracts && npm install && cd ../frontend && npm install",
+    "dev": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "deploy:testnet": "cd contracts && npm run deploy:testnet",
+    "deploy:mainnet": "cd contracts && npm run deploy:mainnet"
+  }
+}

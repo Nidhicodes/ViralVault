@@ -1,0 +1,27 @@
+{
+  "name": "viralvault-contracts",
+  "version": "1.0.0",
+  "description": "ViralVault smart contracts for Mantle Network",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:testnet": "hardhat run scripts/deploy.js --network mantleTestnet",
+    "deploy:mainnet": "hardhat run scripts/deploy.js --network mantle",
+    "verify:testnet": "hardhat verify --network mantleTestnet",
+    "verify:mainnet": "hardhat verify --network mantle",
+    "node": "hardhat node"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "dotenv": "^16.6.1",
+    "hardhat": "^2.28.3"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.4.0"
+  },
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
