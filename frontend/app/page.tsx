@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { TrendingUp, Zap, DollarSign, Users, Twitter, Share2, ChevronRight } from 'lucide-react';
 
 export default function ViralVaultLanding() {
@@ -59,9 +60,9 @@ export default function ViralVaultLanding() {
           </span>
         </div>
         <div className="flex items-center gap-6">
-          <a href="#" className="hover:text-purple-400 transition">Explore</a>
-          <a href="#" className="hover:text-purple-400 transition">Create</a>
-          <a href="#" className="hover:text-purple-400 transition">Invest</a>
+          <Link href="/explore" className="hover:text-purple-400 transition">Explore</Link>
+          <Link href="/create" className="hover:text-purple-400 transition">Create</Link>
+          <Link href="/invest" className="hover:text-purple-400 transition">Invest</Link>
           <button className="px-6 py-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full font-medium hover:scale-105 transition">
             Connect Wallet
           </button>
@@ -87,13 +88,17 @@ export default function ViralVaultLanding() {
             Earn real yield from brand licensing deals.
           </p>
           <div className="flex gap-4 justify-center">
-            <button className="px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full font-bold text-lg hover:scale-105 transition flex items-center gap-2">
-              Tokenize Content
-              <ChevronRight className="w-5 h-5" />
-            </button>
-            <button className="px-8 py-4 border-2 border-white/20 rounded-full font-bold text-lg hover:bg-white/10 transition">
-              Browse Opportunities
-            </button>
+            <Link href="/create">
+              <button className="px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full font-bold text-lg hover:scale-105 transition flex items-center gap-2">
+                Tokenize Content
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </Link>
+            <Link href="/explore">
+              <button className="px-8 py-4 border-2 border-white/20 rounded-full font-bold text-lg hover:bg-white/10 transition">
+                Browse Opportunities
+              </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -198,7 +203,7 @@ export default function ViralVaultLanding() {
               </div>
               <h3 className="text-xl font-bold mb-2">Fans Invest</h3>
               <p className="text-gray-400">
-                Your community buys shares starting at $1. They become stakeholders in your content's success.
+                Your community buys shares starting at $1. They become stakeholders in your content&apos;s success.
               </p>
             </div>
             
