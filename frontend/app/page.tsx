@@ -198,7 +198,7 @@ export default function ViralVaultLanding() {
               </div>
               <h3 className="text-xl font-bold mb-2">Fans Invest</h3>
               <p className="text-gray-400">
-                Your community buys shares starting at $1. They become stakeholders in your content's success.
+                Your community buys shares starting at $1. They become stakeholders in your content&apos;s success.
               </p>
             </div>
             

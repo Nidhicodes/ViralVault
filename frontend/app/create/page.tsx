@@ -139,7 +139,7 @@ export default function CreatePage() {
                   <div>
                     <div className="text-4xl mb-3">📸</div>
                     <p className="text-sm text-gray-400">
-                      We'll capture a screenshot when you mint
+                    We&apos;ll capture a screenshot when you mint
                     </p>
                     <p className="text-xs text-gray-500 mt-2">
                       (In production: auto-screenshot via Puppeteer)
