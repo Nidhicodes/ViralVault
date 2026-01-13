@@ -2,17 +2,21 @@
 import { useState } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { useAccount } from 'wagmi';
-import { useGetBalance, useGetContent, useUSDTBalance, useClaimFaucet } from '@/hooks/useContentNFT';
+import { useUSDTBalance, useClaimFaucet } from '@/hooks/useContentNFT';
+import { MOCK_CONTENT, type ContentData } from '@/lib/mockData';
 import { formatUnits } from 'viem';
-import { Wallet, TrendingUp, DollarSign, Gift, ExternalLink } from 'lucide-react';
+import { Wallet, TrendingUp, DollarSign, Gift, ExternalLink, User, Image as ImageIcon } from 'lucide-react';
 
 export default function PortfolioPage() {
   const { address, isConnected } = useAccount();
   const { balance: usdtBalance } = useUSDTBalance(address);
   const { claim, isPending: isClaiming } = useClaimFaucet();
 
-  // In production, you'd fetch user's holdings from events or subgraph
-  const [ownedTokenIds] = useState([0, 1]); // Example: user owns shares in token 0 and 1
+  // Filter content created by the user and content they've "invested" in from mock data
+  const createdContent = MOCK_CONTENT.filter(c => c.creator.toLowerCase() === address?.toLowerCase());
+
+  // For demo: Assume user owns shares in content they didn't create
+  const holdings = MOCK_CONTENT.filter(c => c.creator.toLowerCase() !== address?.toLowerCase());
 
   const handleClaimFaucet = async () => {
     try {
@@ -58,7 +62,7 @@ export default function PortfolioPage() {
               <span className="text-sm text-gray-300">USDT Balance</span>
             </div>
             <div className="text-3xl font-bold">
-              ${usdtBalance ? formatUnits(usdtBalance, 6) : '0.00'}
+              ${usdtBalance ? Number(formatUnits(usdtBalance, 6)).toFixed(2) : '0.00'}
             </div>
             <button
               onClick={handleClaimFaucet}
@@ -75,8 +79,8 @@ export default function PortfolioPage() {
               <TrendingUp className="w-5 h-5 text-green-400" />
               <span className="text-sm text-gray-300">Total Invested</span>
             </div>
-            <div className="text-3xl font-bold">$0.00</div>
-            <div className="text-sm text-gray-400 mt-2">Across {ownedTokenIds.length} assets</div>
+            <div className="text-3xl font-bold">$450.00</div>
+            <div className="text-sm text-gray-400 mt-2">Across {holdings.length} assets</div>
           </div>
 
           <div className="bg-white/5 border border-white/10 rounded-xl p-6">
@@ -84,16 +88,16 @@ export default function PortfolioPage() {
               <DollarSign className="w-5 h-5 text-yellow-400" />
               <span className="text-sm text-gray-300">Total Earnings</span>
             </div>
-            <div className="text-3xl font-bold text-green-400">+$0.00</div>
-            <div className="text-sm text-gray-400 mt-2">0% ROI</div>
+            <div className="text-3xl font-bold text-green-400">+$84.50</div>
+            <div className="text-sm text-gray-400 mt-2">+18.7% ROI</div>
           </div>
         </div>
 
         {/* Holdings */}
         <div className="mb-8">
-          <h2 className="text-2xl font-bold mb-4">My Holdings</h2>
+          <h2 className="text-2xl font-bold mb-4 flex items-center gap-3"><User /> My Holdings</h2>
           
-          {ownedTokenIds.length === 0 ? (
+          {holdings.length === 0 ? (
             <div className="bg-white/5 border border-white/10 rounded-xl p-12 text-center">
               <div className="text-6xl mb-4">📊</div>
               <h3 className="text-xl font-bold mb-2">No investments yet</h3>
@@ -109,8 +113,8 @@ export default function PortfolioPage() {
             </div>
           ) : (
             <div className="grid grid-cols-2 gap-6">
-              {ownedTokenIds.map((tokenId) => (
-                <HoldingCard key={tokenId} tokenId={tokenId} userAddress={address!} />
+              {holdings.map((content) => (
+                <HoldingCard key={content.tokenId} content={content} />
               ))}
             </div>
           )}
@@ -118,39 +122,38 @@ export default function PortfolioPage() {
 
         {/* Created Content */}
         <div>
-          <h2 className="text-2xl font-bold mb-4">My Created Content</h2>
-          <div className="bg-white/5 border border-white/10 rounded-xl p-12 text-center">
-            <div className="text-6xl mb-4">✨</div>
-            <h3 className="text-xl font-bold mb-2">No content created yet</h3>
-            <p className="text-gray-400 mb-6">
-              Tokenize your viral content and start earning
-            </p>
-            <button
-              onClick={() => window.location.href = '/create'}
-              className="px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg font-bold hover:scale-105 transition"
-            >
-              Tokenize Content
-            </button>
-          </div>
+          <h2 className="text-2xl font-bold mb-4 flex items-center gap-3"><ImageIcon /> My Created Content</h2>
+          {createdContent.length === 0 ? (
+            <div className="bg-white/5 border border-white/10 rounded-xl p-12 text-center">
+              <div className="text-6xl mb-4">✨</div>
+              <h3 className="text-xl font-bold mb-2">No content created yet</h3>
+              <p className="text-gray-400 mb-6">
+                Tokenize your viral content and start earning
+              </p>
+              <button
+                onClick={() => window.location.href = '/create'}
+                className="px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg font-bold hover:scale-105 transition"
+              >
+                Tokenize Content
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-6">
+              {createdContent.map((content) => (
+                <HoldingCard key={content.tokenId} content={content} isCreatorView={true} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 }
 
-// Component to display individual holding
-function HoldingCard({ tokenId, userAddress }: { tokenId: number; userAddress: string }) {
-  const { content } = useGetContent(tokenId);
-  const { balance } = useGetBalance(userAddress as `0x${string}`, tokenId);
-
-  if (!content || !balance) {
-    return (
-      <div className="bg-white/5 border border-white/10 rounded-xl p-6 animate-pulse">
-        <div className="h-4 bg-white/10 rounded mb-4"></div>
-        <div className="h-20 bg-white/10 rounded"></div>
-      </div>
-    );
-  }
+// Updated component to display individual holding from mock data
+function HoldingCard({ content, isCreatorView = false }: { content: ContentData; isCreatorView?: boolean }) {
+  // Mock balance for demo purposes
+  const balance = isCreatorView ? content.totalShares / 2n : BigInt(Math.floor(Math.random() * 100) + 10);
 
   const sharePrice = formatUnits(content.sharePrice, 6);
   const totalValue = (Number(balance) * Number(sharePrice)).toFixed(2);
@@ -161,7 +164,7 @@ function HoldingCard({ tokenId, userAddress }: { tokenId: number; userAddress: s
     <div className="bg-white/5 border border-white/10 rounded-xl p-6 hover:border-purple-500/50 transition">
       <div className="flex items-start justify-between mb-4">
         <div>
-          <div className="text-sm text-gray-400 mb-1">Token #{tokenId}</div>
+          <div className="text-sm text-gray-400 mb-1">Token #{content.tokenId}</div>
           <a
             href={content.twitterUrl}
             target="_blank"
@@ -178,7 +181,7 @@ function HoldingCard({ tokenId, userAddress }: { tokenId: number; userAddress: s
 
       <div className="space-y-3 mb-4">
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-400">Shares Owned</span>
+          <span className="text-sm text-gray-400">{isCreatorView ? 'Creator Shares' : 'Shares Owned'}</span>
           <span className="font-bold">{balance.toString()}</span>
         </div>
         <div className="flex justify-between items-center">
@@ -196,7 +199,7 @@ function HoldingCard({ tokenId, userAddress }: { tokenId: number; userAddress: s
       </div>
 
       <button className="w-full px-4 py-2 bg-purple-500/20 border border-purple-500/30 rounded-lg hover:bg-purple-500/30 transition">
-        View Details
+        View Analytics (Coming Soon)
       </button>
     </div>
   );
