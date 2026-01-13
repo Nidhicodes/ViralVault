@@ -1,0 +1,46 @@
+
+> viralvault-frontend@1.0.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use, trying 3001 instead.
+   ▲ Next.js 14.1.0
+   - Local:        http://localhost:3001
+   - Environments: .env.local
+
+npm error code ENOWORKSPACES
+npm error This command does not support workspaces.
+npm error A complete log of this run can be found in: /home/jules/.npm/_logs/2026-01-13T20_08_27_285Z-debug-0.log
+ ✓ Ready in 2.3s
+ ○ Compiling / ...
+ ⨯ ./app/page.tsx:5:0
+Module not found: Can't resolve '@/hooks/useWallet'
+[0m [90m 3 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m'next/link'[39m[33m;[39m[0m
+[0m [90m 4 |[39m [36mimport[39m { [33mTrendingUp[39m[33m,[39m [33mZap[39m[33m,[39m [33mDollarSign[39m[33m,[39m [33mUsers[39m[33m,[39m [33mTwitter[39m[33m,[39m [33mShare2[39m[33m,[39m [33mChevronRight[39m } [36mfrom[39m [32m'lucide-react'[39m[33m;[39m[0m
+[0m[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m { useWallet } [36mfrom[39m [32m'@/hooks/useWallet'[39m[33m;[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mViralVaultLanding[39m() {[0m
+[0m [90m 8 |[39m   [36mconst[39m { address[33m,[39m isConnected[33m,[39m connect[33m,[39m disconnect } [33m=[39m useWallet()[33m;[39m[0m
+
+https://nextjs.org/docs/messages/module-not-found
+ ⨯ ./app/page.tsx:5:0
+Module not found: Can't resolve '@/hooks/useWallet'
+[0m [90m 3 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m'next/link'[39m[33m;[39m[0m
+[0m [90m 4 |[39m [36mimport[39m { [33mTrendingUp[39m[33m,[39m [33mZap[39m[33m,[39m [33mDollarSign[39m[33m,[39m [33mUsers[39m[33m,[39m [33mTwitter[39m[33m,[39m [33mShare2[39m[33m,[39m [33mChevronRight[39m } [36mfrom[39m [32m'lucide-react'[39m[33m;[39m[0m
+[0m[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m { useWallet } [36mfrom[39m [32m'@/hooks/useWallet'[39m[33m;[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mViralVaultLanding[39m() {[0m
+[0m [90m 8 |[39m   [36mconst[39m { address[33m,[39m isConnected[33m,[39m connect[33m,[39m disconnect } [33m=[39m useWallet()[33m;[39m[0m
+
+https://nextjs.org/docs/messages/module-not-found
+ ⨯ ./app/page.tsx:5:0
+Module not found: Can't resolve '@/hooks/useWallet'
+[0m [90m 3 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m'next/link'[39m[33m;[39m[0m
+[0m [90m 4 |[39m [36mimport[39m { [33mTrendingUp[39m[33m,[39m [33mZap[39m[33m,[39m [33mDollarSign[39m[33m,[39m [33mUsers[39m[33m,[39m [33mTwitter[39m[33m,[39m [33mShare2[39m[33m,[39m [33mChevronRight[39m } [36mfrom[39m [32m'lucide-react'[39m[33m;[39m[0m
+[0m[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m { useWallet } [36mfrom[39m [32m'@/hooks/useWallet'[39m[33m;[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mViralVaultLanding[39m() {[0m
+[0m [90m 8 |[39m   [36mconst[39m { address[33m,[39m isConnected[33m,[39m connect[33m,[39m disconnect } [33m=[39m useWallet()[33m;[39m[0m
+
+https://nextjs.org/docs/messages/module-not-found
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/app/frontend/.next/cache/webpack/client-development-fallback/0.pack.gz_' -> '/app/frontend/.next/cache/webpack/client-development-fallback/0.pack.gz'
+[?25h

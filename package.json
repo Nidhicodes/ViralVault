@@ -12,5 +12,8 @@
     "build": "cd frontend && npm run build",
     "deploy:testnet": "cd contracts && npm run deploy:testnet",
     "deploy:mainnet": "cd contracts && npm run deploy:mainnet"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.57.0"
   }
 }

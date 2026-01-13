@@ -1,0 +1,14 @@
+
+> viralvault-frontend@1.0.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use, trying 3001 instead.
+   ▲ Next.js 14.1.0
+   - Local:        http://localhost:3001
+   - Environments: .env.local
+
+npm error code ENOWORKSPACES
+npm error This command does not support workspaces.
+npm error A complete log of this run can be found in: /home/jules/.npm/_logs/2026-01-13T20_17_59_096Z-debug-0.log
+ ✓ Ready in 2.6s
+ ○ Compiling / ...
