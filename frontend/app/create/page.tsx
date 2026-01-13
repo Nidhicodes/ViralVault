@@ -4,6 +4,7 @@ import { Navbar } from '@/components/Navbar';
 import { useTokenizeContent } from '@/hooks/useContentNFT';
 import { useAccount } from 'wagmi';
 import { Upload, CheckCircle, AlertCircle, Loader } from 'lucide-react';
+import { uploadToIPFS } from '@/lib/ipfs';
 
 export default function CreatePage() {
   const { address, isConnected } = useAccount();
@@ -27,8 +28,10 @@ export default function CreatePage() {
     }
 
     try {
-      // In production: upload content screenshot to IPFS here
-      const mockHash = `Qm${Date.now()}`; // Mock IPFS hash
+      // Mock: Just generate fake hash
+      // In production: const screenshot = await captureScreenshot(formData.twitterUrl);
+      const mockHash = await uploadToIPFS(new File([], 'mock.jpg'));
+
       setContentHash(mockHash);
 
       await tokenize(
@@ -38,6 +41,8 @@ export default function CreatePage() {
         Number(formData.totalShares),
         formData.sharePrice
       );
+
+      // After success, manually add to mockData.ts for demo
     } catch (err) {
       console.error('Tokenization failed:', err);
     }
@@ -124,6 +129,31 @@ export default function CreatePage() {
               <p className="text-xs text-gray-400 mt-2">
                 Link to your original content (Twitter, etc.)
               </p>
+            </div>
+
+            {/* Screenshot Preview */}
+            <div className="mb-6">
+              <label className="block text-sm font-medium mb-3">Content Preview</label>
+              <div className="border-2 border-dashed border-white/20 rounded-lg p-8 text-center">
+                {formData.twitterUrl ? (
+                  <div>
+                    <div className="text-4xl mb-3">📸</div>
+                    <p className="text-sm text-gray-400">
+                      We'll capture a screenshot when you mint
+                    </p>
+                    <p className="text-xs text-gray-500 mt-2">
+                      (In production: auto-screenshot via Puppeteer)
+                    </p>
+                  </div>
+                ) : (
+                  <div>
+                    <div className="text-4xl mb-3">🖼️</div>
+                    <p className="text-sm text-gray-400">
+                      Add content URL to preview
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Share Configuration */}
@@ -223,8 +253,8 @@ export default function CreatePage() {
               </div>
             )}
 
-            <p className="text-xs text-gray-400 text-center">
-              By tokenizing, you agree that you own the rights to this content
+            <p className="text-xs text-yellow-400 mt-2">
+              ⚠️ By tokenizing, you certify you own this content
             </p>
           </form>
         )}
